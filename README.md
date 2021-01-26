@@ -1,4 +1,4 @@
-# Token MutliSelect Control
+# Token MultiSelect Control
 
 ![Demo](resources/token-multi-select-control.gif?raw=true)
 
