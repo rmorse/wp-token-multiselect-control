@@ -1,6 +1,6 @@
 # Token MultiSelect Control
 
-![Demo](resources/token-multi-select-control.gif?raw=true)
+![Demo](resources/token-multi-select-control.gif)
 
 A multiselect control in the style of Gutenberg components - something for the interim - eagerly awaiting [G2 Components](https://github.com/ItsJonQ/g2)
 
