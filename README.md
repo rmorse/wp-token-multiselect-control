@@ -2,7 +2,7 @@
 
 ![Demo](resources/token-multi-select-control.gif)
 
-A multiselect control in the style of Gutenberg components - filling the gap while we wait for [G2 Components](https://github.com/ItsJonQ/g2).
+A multiselect control in the style of Gutenberg components - filling the gap until [G2 Components](https://github.com/ItsJonQ/g2) are ready.
 
 This is a slightly modified version of `FormTokenField` - behaving more like a multiselect (as popularised by the Select2 JS library).
 
