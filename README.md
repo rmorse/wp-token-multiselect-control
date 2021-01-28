@@ -1,15 +1,15 @@
-# Token Mutliselect Control
+# Token MultiSelect Control
 
-![Demo](resources/token-multi-select-control.gif?raw=true)
+![Demo](resources/token-multi-select-control.gif)
 
-A `TokenMultiSelectControl` is a slightly modified version of `FormTokenField` - only that it behaves more like a multiselect like the select2 JS library.
+A multiselect control in the style of Gutenberg components - filling the gap until [G2 Components](https://github.com/ItsJonQ/g2) are ready.
 
-The idea is to have a multiselect control in the style of Gutenberg components.
+This is a slightly modified version of `FormTokenField` - behaving more like a multiselect (as popularised by the Select2 JS library).
 
-Main differences are:
-- takes an array of value/label pairs for populating the options/suggestions
-- options are immediately shown on keyboard interaction or click event (rather than waiting for 2 characters to be entered before display)
-- there is no ability to create new tokens (ie create a new tag from within the control itself) - you can only select from the options supplied to the control
+The main differences:
+- Takes an array of value/label pairs for populating the options/suggestions
+- Options are immediately shown on keyboard interaction or click event (rather than waiting for 2 characters to be entered before display)
+- There is no ability to create new tokens (i.e., create a new tag from within the control itself) - you can only select from the options supplied to the control
 
 See [Form Token Field](https://github.com/WordPress/gutenberg/tree/master/packages/components/src/form-token-field) in the Gutenberg Documentation for more information.
 
@@ -54,7 +54,7 @@ Then:
 import TokenMultiSelectControl from '../your/path/token-multiselect-control';
 import { withState } from '@wordpress/compose';
 
-const MyFormTokenField = withState( {
+const MyMultiSelectControl = withState( {
 	value: [],
 	options: [
 		{
@@ -86,3 +86,8 @@ const MyFormTokenField = withState( {
 	/>
 ) );
 ```
+Then add:
+```
+<MyMultiSelectControl />
+```
+To your render method.
