@@ -135,12 +135,12 @@ class TokenMultiSelectControl extends Component {
 				'components-form-token-field__suggestion'
 			)
 		) {
-			this.setState( { isExpanded: true } );
+			this.setState( { isExpanded: true, isActive: true } );
 		}
 	}
 
 	onBlur() {
-		if ( this.inputHasValidValue() ) {
+		if ( this.inputHasValidToken() ) {
 			this.setState( { isActive: false, isExpanded: false } );
 		} else {
 			this.setState( initialState );
@@ -186,7 +186,6 @@ class TokenMultiSelectControl extends Component {
 				event.stopPropagation();
 				break;
 			default:
-				this.setState( { isExpanded: true } );
 				break;
 		}
 
@@ -195,7 +194,11 @@ class TokenMultiSelectControl extends Component {
 		}
 	}
 
-	onKeyPress( event ) {}
+	onKeyPress( event ) {
+		if ( ! this.state.isExpanded ) {
+			this.setState( { isExpanded: true } );
+		}
+	}
 
 	onContainerTouched( event ) {
 		// Prevent clicking/touching the tokensAndInput container from blurring
@@ -272,7 +275,9 @@ class TokenMultiSelectControl extends Component {
 	}
 	getValueFromLabel( optionLabel ) {
 		const foundOption = this.props.options.find(
-			( option ) => option.label === optionLabel
+			( option ) =>
+				option.label.toLocaleLowerCase() ===
+				optionLabel.toLocaleLowerCase()
 		);
 		if ( foundOption ) {
 			return foundOption.value;
@@ -381,15 +386,13 @@ class TokenMultiSelectControl extends Component {
 	addCurrentToken() {
 		let preventDefault = false;
 		const selectedSuggestion = this.getSelectedSuggestion();
-
 		if ( selectedSuggestion ) {
 			this.addNewToken( selectedSuggestion );
 			preventDefault = true;
-		} else if ( this.inputHasValidValue() ) {
+		} else if ( this.inputHasValidToken() ) {
 			this.addNewToken( this.state.incompleteTokenValue );
 			preventDefault = true;
 		}
-
 		return preventDefault;
 	}
 
@@ -400,15 +403,19 @@ class TokenMultiSelectControl extends Component {
 				.filter( Boolean )
 				.filter( ( token ) => ! this.valueContainsToken( token ) )
 		);
+
 		if ( tokensToAdd.length > 0 ) {
 			const tokenValuesToAdd = tokensToAdd.map( ( tokenLabel ) => {
 				return this.getValueFromLabel( tokenLabel );
 			} );
-			const newValue = clone( this.props.value );
+
+			let newValue = clone( this.props.value );
 			newValue.splice.apply(
 				newValue,
 				[ this.getIndexOfInput(), 0 ].concat( tokenValuesToAdd )
 			);
+			// now remove duplicates if required
+			newValue = [ ...new Set( newValue ) ];
 			this.props.onChange( newValue );
 		}
 	}
@@ -438,7 +445,7 @@ class TokenMultiSelectControl extends Component {
 	}
 
 	getTokenValue( token ) {
-		if ( 'object' === typeof token ) {
+		if ( token && token.value ) {
 			return token.value;
 		}
 
@@ -502,11 +509,21 @@ class TokenMultiSelectControl extends Component {
 		return this.state.incompleteTokenValue.length === 0;
 	}
 
-	inputHasValidValue() {
-		return (
-			this.props.saveTransform( this.state.incompleteTokenValue ).length >
-			0
-		);
+	inputHasValidToken() {
+		const incompleteTokenValue = this.state.incompleteTokenValue;
+		let foundMatch = false;
+		if ( incompleteTokenValue && incompleteTokenValue.length > 0 ) {
+			this.props.options.forEach( ( option ) => {
+				if (
+					option.label.trim().toLocaleLowerCase() ===
+					incompleteTokenValue.trim().toLocaleLowerCase()
+				) {
+					foundMatch = true;
+					// return true; //not working?
+				}
+			} );
+		}
+		return foundMatch;
 	}
 
 	updateSuggestions( resetSelectedSuggestion = true ) {
@@ -635,7 +652,7 @@ class TokenMultiSelectControl extends Component {
 		if ( ! disabled ) {
 			tokenFieldProps = Object.assign( {}, tokenFieldProps, {
 				onKeyDown: this.onKeyDown,
-				// onKeyPress: this.onKeyPress,
+				onKeyPress: this.onKeyPress,
 				onFocus: this.onFocus,
 				onClick: this.onClick,
 			} );
@@ -689,7 +706,7 @@ TokenMultiSelectControl.defaultProps = {
 	maxSuggestions: 100,
 	value: Object.freeze( [] ),
 	displayTransform: identity,
-	saveTransform: ( token ) => token.trim(),
+	saveTransform: ( token ) => ( token ? token.trim() : '' ),
 	onChange: () => {},
 	onInputChange: () => {},
 	isBorderless: false,
