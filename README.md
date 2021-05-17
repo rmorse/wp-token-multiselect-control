@@ -29,17 +29,17 @@ See [Form Token Field](https://github.com/WordPress/gutenberg/tree/master/packag
 - `options` - An array of objects with value/label pairs
 ```javascript
 [
-    {
-	    value: 'post',
-	    label: 'Post',
+	{
+		value: 'post',
+		label: 'Post',
 	},
 	{
-	    value: 'page',
-	    label: 'Page',
+		value: 'page',
+		label: 'Page',
 	},
  	{
-	    value: 'product',
-	    label: 'Product',
+		value: 'product',
+		label: 'Product',
 	},
 ]
 ```
