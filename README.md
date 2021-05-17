@@ -37,7 +37,7 @@ See [Form Token Field](https://github.com/WordPress/gutenberg/tree/master/packag
 	    value: 'page',
 	    label: 'Page',
 	},
-    {
+ 	{
 	    value: 'product',
 	    label: 'Product',
 	},
