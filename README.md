@@ -48,7 +48,7 @@ Should support most of the properties from [Form Token Field](https://github.com
 ## Usage
 First you will need to add the folder `token-multiselect-control` to your project.
 
-You might need to install the npm package depending on your version of Gutenberg - 'dom-scroll-into-view', run:
+You might need to install the npm package - 'dom-scroll-into-view' (depending on your version of Gutenberg), run:
 
 ```npm install 'dom-scroll-into-view'```
 
