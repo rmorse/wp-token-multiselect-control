@@ -4,7 +4,7 @@
 
 A multiselect control in the style of Gutenberg components - filling the gap until [G2 Components](https://github.com/ItsJonQ/g2) are ready.
 
-This is a slightly modified version of `FormTokenField` - behaving more like a multiselect (as popularised by the Select2 JS library).
+This is a slightly modified version of `FormTokenField` - behaving more like a multiselect.
 
 The main differences:
 - Takes an array of value/label pairs for populating the options/suggestions
