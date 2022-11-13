@@ -1,5 +1,14 @@
 # Token MultiSelect Control
 
+> **Warning**
+>
+> This component is superceded by the new [MultiSelectControl](https://github.com/Code-Amp/block-components/tree/main/components/multi-select-control) in the [Block Components project](https://github.com/Code-Amp/block-components)
+>
+> Also [available via NPM](https://www.npmjs.com/package/@codeamp/block-components).
+
+
+-------
+
 ![Demo](resources/token-multi-select-control.gif)
 
 A multiselect control in the style of Gutenberg components - filling the gap until [G2 Components](https://github.com/ItsJonQ/g2) are ready.
